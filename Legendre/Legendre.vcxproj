@@ -118,9 +118,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AssociatedLegendre.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="AssociatedLegendre.h" />
     <ClInclude Include="LegendreExceptions.h" />
   </ItemGroup>

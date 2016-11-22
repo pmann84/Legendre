@@ -23,5 +23,8 @@
     <ClInclude Include="AssociatedLegendre.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LegendreExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

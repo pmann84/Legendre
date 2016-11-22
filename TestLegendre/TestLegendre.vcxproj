@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Googletest\googletest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Googletest\googletest\msvc\gtest-md\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Googletest\googlemock\include;C:\Googletest\googletest\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Googletest\googletest\msvc\gtest-md\Debug;C:\Googletest\googlemock\msvc\2015\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TestLegendre.cpp" />
+    <ClCompile Include="TestLegendreArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Legendre\Legendre.vcxproj">

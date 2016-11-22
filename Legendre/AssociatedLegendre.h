@@ -1,7 +1,10 @@
 #ifndef __ASSOCIATED_LEGENDRE_H__
 #define __ASSOCIATED_LEGENDRE_H__
 
+#include <vector>
 #include <math.h>
+
+#include "LegendreExceptions.h"
 
 // Uses the recurrence relation:
 // (l - m) P_l^m (x) = x (2l - 1) P_l-1^m (x) - (l + m - 1) P_l-2^m (x)
@@ -30,8 +33,8 @@
 
 // TODO: Test more polynomial values for l and m
 // TODO: Add calculation of normalised values of ass legs
-// TODO: Add ability to pass in list of x values
 // TODO: Calculate Legendre polynomials (just associated values with m = 0)
+// TODO: Template with the type
 // TODO: Calculate Legendre coefficients (? maybe)
 // TODO: Update comments to use latex syntax?
 
@@ -45,10 +48,13 @@ public:
 	int m() const;
 
 	double operator()(double x) const;
+	std::vector<double> operator()(std::vector<double> x) const;
 
 private:
 	int m_l;
 	int m_m;
+
+	double calculatePolynomialValue(double x) const;
 };
 
 #endif // __ASSOCIATED_LEGENDRE_H__

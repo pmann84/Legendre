@@ -91,3 +91,13 @@ double AssociatedLegendre::calculatePolynomialValue(double x) const
 		}
 	}
 }
+
+double AssociatedLegendre::calculateNormalisationValue() const
+{
+	return sqrt(((2.0*m_l + 1.0) / 2.0)*(factorial(m_l - m_m)/factorial(m_l + m_m)));
+}
+
+double AssociatedLegendre::factorial(double n) const
+{
+	return std::tgamma(n + 1.0);
+}

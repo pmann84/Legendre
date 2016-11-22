@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClCompile Include="TestLegendre.cpp" />
     <ClCompile Include="TestLegendreArray.cpp" />
+    <ClCompile Include="TestLegendreNormalisation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Legendre\Legendre.vcxproj">

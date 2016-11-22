@@ -55,6 +55,8 @@ private:
 	int m_m;
 
 	double calculatePolynomialValue(double x) const;
+	double calculateNormalisationValue() const;
+	double factorial(double n) const;
 };
 
 #endif // __ASSOCIATED_LEGENDRE_H__

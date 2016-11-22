@@ -1,2 +1,7 @@
 Legendre/Debug/
 *.sdf
+Debug/
+*.suo
+*.user
+*.opendb
+*.db

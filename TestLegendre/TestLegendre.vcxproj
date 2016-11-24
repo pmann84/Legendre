@@ -120,11 +120,15 @@
     <ClCompile Include="TestLegendre.cpp" />
     <ClCompile Include="TestLegendreArray.cpp" />
     <ClCompile Include="TestLegendreNormalisation.cpp" />
+    <ClCompile Include="TestLegendreUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Legendre\Legendre.vcxproj">
       <Project>{5e9fe3cb-2c20-45ae-b5a7-6f62c4150329}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestLegendreUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,39 +27,39 @@
 
 // For normalised values of Associated Legendre Polynomials the normalising factor is as 
 // follows:
-// PBar_l^m (x) = sqrt{ (2l + 1)/2 (l-m)!/(l+m)! } P_l^m (x)
-// Although noted that normalising factor is sometimes expressed as:
-// PBar_l^m (x) = sqrt{ (2l + 1)/2*pi (l-m)!/(l+m)! } P_l^m (x)
+// Theta_l^m (x) = sqrt{ (2l + 1)/2 (l-m)!/(l+m)! } P_l^m (x)
+// NOTE that the normalising factor for spherical harmonics (with azimuthal part) is:
+// Theta_l^m (x) = sqrt{ (2l + 1)/4*pi (l-m)!/(l+m)! } P_l^m (x)
 
-// TODO: Test more polynomial values for l and m
-// TODO: Add calculation of normalised values of ass legs
-// TODO: Calculate Legendre polynomials (just associated values with m = 0)
-// TODO: Calculate Legendre coefficients (? maybe)
+// Legendre polynomials P_l (x) can be obtained by using the Associated Legendre polynomial
+// class and setting m = 0
+
 // TODO: Update comments to use latex syntax
 
-template<class T> class AssociatedLegendre
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Associated Legendre Polynomials
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class AssociatedLegendre
 {
 public:
-	AssociatedLegendre(int l, int m);
-	~AssociatedLegendre();
+	AssociatedLegendre(unsigned int l, unsigned int m);
+	~AssociatedLegendre() = default;
 
-	int l() const;
-	int m() const;
+	unsigned int l() const;
+	unsigned int m() const;
 
-	T operator()(T x) const;
-	std::vector<T> operator()(std::vector<T> x) const;
+	double operator()(double x) const;
+	std::vector<double> operator()(std::vector<double>& x) const;
 
 private:
-	int m_l;
-	int m_m;
+	unsigned int m_l;
+	unsigned int m_m;
 
-	double calculatePolynomialValue(T x) const;
-	double calculateNormalisationValue() const;
-	double factorial(T n) const;
+	double calculatePolynomialValue(double x) const;
 };
 
-template <class T>
-AssociatedLegendre<T>::AssociatedLegendre(int l, int m) : m_l(l), m_m(m)
+inline AssociatedLegendre::AssociatedLegendre(unsigned int l, unsigned int m) : m_l(l), m_m(m)
 {
 	if (m_m < 0)
 	{
@@ -71,33 +71,24 @@ AssociatedLegendre<T>::AssociatedLegendre(int l, int m) : m_l(l), m_m(m)
 	}
 }
 
-template <class T>
-AssociatedLegendre<T>::~AssociatedLegendre()
-{
-}
-
-template <class T>
-int AssociatedLegendre<T>::l() const
+inline unsigned int AssociatedLegendre::l() const
 {
 	return m_l;
 }
 
-template <class T>
-int AssociatedLegendre<T>::m() const
+inline unsigned int AssociatedLegendre::m() const
 {
 	return m_m;
 }
 
-template <class T>
-T AssociatedLegendre<T>::operator()(T x) const
+inline double AssociatedLegendre::operator()(double x) const
 {
 	return calculatePolynomialValue(x);
 }
 
-template <class T>
-std::vector<T> AssociatedLegendre<T>::operator()(std::vector<T> x) const
+inline std::vector<double> AssociatedLegendre::operator()(std::vector<double>& x) const
 {
-	std::vector<T> result;
+	std::vector<double> result;
 	for (auto it : x)
 	{
 		result.push_back(calculatePolynomialValue(it));
@@ -105,11 +96,10 @@ std::vector<T> AssociatedLegendre<T>::operator()(std::vector<T> x) const
 	return result;
 }
 
-template <class T>
-double AssociatedLegendre<T>::calculatePolynomialValue(T x) const
+inline double AssociatedLegendre::calculatePolynomialValue(double x) const
 {
-	T pmm = 1.0;
-	T pmp1m;
+	double pmm = 1.0;
+	double pmp1m;
 
 	// Check Inputs
 	if (fabs(x) > 1.0)
@@ -120,8 +110,8 @@ double AssociatedLegendre<T>::calculatePolynomialValue(T x) const
 	if (m_m > 0)
 	{
 		// P_m^m(x) = (-1) ^ m(2m - 1)!!(1 - x ^ 2) ^ m / 2
-		T sqrtomx2 = sqrt(1.0 - x*x);
-		T oddInt = 1.0;
+		double sqrtomx2 = sqrt(1.0 - x*x);
+		double oddInt = 1.0;
 		for (int i = 1; i <= m_m; ++i)
 		{
 			pmm *= -1.0*oddInt*sqrtomx2;
@@ -142,7 +132,7 @@ double AssociatedLegendre<T>::calculatePolynomialValue(T x) const
 		}
 		else
 		{
-			T pmp2m = 0.0;
+			double pmp2m = 0.0;
 			for (int i = m_m + 2; i <= m_l; ++i)
 			{
 				// (l - m) P_l^m (x) = x (2l - 1) P_l-1^m (x) - (l + m - 1) P_l-2^m (x)
@@ -157,16 +147,49 @@ double AssociatedLegendre<T>::calculatePolynomialValue(T x) const
 	}
 }
 
-template <class T>
-double AssociatedLegendre<T>::calculateNormalisationValue() const
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Normalised Associated Legendre Polynomials
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class NormalisedAssociatedLegendre
 {
-	return sqrt(((2.0*m_l + 1.0) / 2.0)*(factorial(m_l - m_m) / factorial(m_l + m_m)));
+public:
+	NormalisedAssociatedLegendre(unsigned int l, unsigned int m);
+	~NormalisedAssociatedLegendre() = default;
+
+	double operator()(double x) const;
+	std::vector<double> operator()(std::vector<double>& x) const;
+
+private:
+	AssociatedLegendre m_associatedLegendre;
+
+	double calculateNormalisationValue() const;
+};
+
+inline NormalisedAssociatedLegendre::NormalisedAssociatedLegendre(unsigned int l, unsigned int m) : m_associatedLegendre(l, m)
+{
 }
 
-template <class T>
-double AssociatedLegendre<T>::factorial(T n) const
+inline double NormalisedAssociatedLegendre::operator()(double x) const
 {
-	return std::tgamma(n + 1.0);
+	return calculateNormalisationValue()*m_associatedLegendre(x);
+}
+
+inline std::vector<double> NormalisedAssociatedLegendre::operator()(std::vector<double>& x) const
+{
+	std::vector<double> result;
+	for (auto it : x)
+	{
+		result.push_back(calculateNormalisationValue()*m_associatedLegendre(it));
+	}
+	return result;
+}
+
+inline double NormalisedAssociatedLegendre::calculateNormalisationValue() const
+{
+	unsigned int lmm = m_associatedLegendre.l() - m_associatedLegendre.m();
+	unsigned int lpm = m_associatedLegendre.l() + m_associatedLegendre.m();
+	return sqrt(((2.0*m_associatedLegendre.l() + 1.0) / 2.0)*(std::tgamma(lmm + 1) / std::tgamma(lpm + 1)));
 }
 
 #endif // __ASSOCIATED_LEGENDRE_H__

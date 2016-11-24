@@ -29,3 +29,12 @@ TEST(TestLegendreNormalisation, NormalisedLegendreEvaluateAtM2L4)
 	NormalisedAssociatedLegendre legendre(l, m);
 	EXPECT_DOUBLE_EQ(legendre(inputValue), TestLegendreUtils::Legendre42(inputValue, true));
 }
+
+TEST(TestLegendreNormalisation, NormalisedLegendreEvaluateAtM1L3)
+{
+	unsigned int l = 3;
+	unsigned int m = 1;
+	double inputValue = 0.0;
+	NormalisedAssociatedLegendre legendre(l, m);
+	EXPECT_DOUBLE_EQ(legendre(inputValue), TestLegendreUtils::Legendre31(inputValue, true));
+}

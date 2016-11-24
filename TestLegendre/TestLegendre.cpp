@@ -66,7 +66,7 @@ TEST(TestLegendre, LegendreEvaluateAtM3L4)
 {
 	unsigned int l = 4;
 	unsigned int m = 3;
-	double inputValue = 0.5;
+	double inputValue = -0.75;
 	AssociatedLegendre legendre(l, m);
 	EXPECT_DOUBLE_EQ(legendre(inputValue), TestLegendreUtils::Legendre43(inputValue));
 }

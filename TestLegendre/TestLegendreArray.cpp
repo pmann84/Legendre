@@ -45,6 +45,7 @@ TEST(TestLegendreArray, LegendreEvaluateAtM1L2)
 	unsigned int m = 1;
 	std::vector<double> inputs({ -0.75, -0.5, 0.0, 0.25, 0.5 });
 	AssociatedLegendre legendre(l, m);
+	std::vector<double> results = legendre(inputs);
 	EXPECT_THAT(legendre(inputs), testing::ElementsAre(TestLegendreUtils::Legendre21(inputs[0]), 
 													   TestLegendreUtils::Legendre21(inputs[1]), 
 													   TestLegendreUtils::Legendre21(inputs[2]), 
@@ -58,11 +59,11 @@ TEST(TestLegendreArray, LegendreEvaluateAtM1L3)
 	unsigned int m = 1;
 	std::vector<double> inputs({ -0.75, -0.5, 0.0, 0.25, 0.5 });
 	AssociatedLegendre legendre(l, m);
-	EXPECT_THAT(legendre(inputs), testing::ElementsAre(TestLegendreUtils::Legendre31(inputs[0]), 
-													   TestLegendreUtils::Legendre31(inputs[1]), 
-													   TestLegendreUtils::Legendre31(inputs[2]), 
-													   TestLegendreUtils::Legendre31(inputs[3]), 
-													   TestLegendreUtils::Legendre31(inputs[4])));
+	std::vector<double> results = legendre(inputs);
+	for (int i = 0; i < results.size(); ++i)
+	{
+		EXPECT_DOUBLE_EQ(results[i], TestLegendreUtils::Legendre31(inputs[i]));
+	}
 }
 
 TEST(TestLegendreArray, LegendreEvaluateAtM3L4)
@@ -71,9 +72,9 @@ TEST(TestLegendreArray, LegendreEvaluateAtM3L4)
 	unsigned int m = 3;
 	std::vector<double> inputs({ -0.75, -0.5, 0.0, 0.25, 0.5 });
 	AssociatedLegendre legendre(l, m);
-	EXPECT_THAT(legendre(inputs), testing::ElementsAre(TestLegendreUtils::Legendre43(inputs[0]), 
-													   TestLegendreUtils::Legendre43(inputs[1]), 
-													   TestLegendreUtils::Legendre43(inputs[2]), 
-													   TestLegendreUtils::Legendre43(inputs[3]), 
-													   TestLegendreUtils::Legendre43(inputs[4])));
+	std::vector<double> results = legendre(inputs);
+	for (int i = 0; i < results.size(); ++i)
+	{
+		EXPECT_DOUBLE_EQ(results[i], TestLegendreUtils::Legendre43(inputs[i]));
+	}
 }

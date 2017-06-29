@@ -1,4 +1,5 @@
 # Overview #
+**Note: There are now standard library classes that are available in C++17 that can calculate Associated Legendre Polynomials.**
 This two classes are meant to provide a lightweight unit tested way of calculating Associated Legendre Polynomial values in C++. This class only has dependencies on the C++ standard library, so should work cross platform. 
 
 # Prerequisites #
